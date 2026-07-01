@@ -58,9 +58,9 @@
 - Базово снимать метрики Linux (`top`, `vmstat`, `iostat`) — у тебя это уже есть.
 
 **Книги (ядро):**
-- Kleppmann *DDIA* гл.1 (метрики, перцентили). https://dataintensive.net/
-- Molyneaux *Art of Application Performance Testing* (процесс).
-- Meier *Performance Testing Guidance* (типы тестов, бесплатно). https://learn.microsoft.com/en-us/previous-versions/msp-n-p/bb924375(v=pandp.10)
+- Клеппман «Высоконагруженные приложения» (DDIA) гл.1 (метрики, перцентили). https://dataintensive.net/
+- Молинье «Искусство тестирования производительности приложений» (The Art of Application Performance Testing) (процесс).
+- Мейер «Руководство по тестированию производительности веб-приложений» (Performance Testing Guidance) (типы тестов, бесплатно). https://learn.microsoft.com/en-us/previous-versions/msp-n-p/bb924375(v=pandp.10)
 - Документация k6. https://grafana.com/docs/k6/latest/
 
 **Доказательство уровня (портфолио):**
@@ -82,10 +82,10 @@
 - Работать с мониторингом (Grafana/Prometheus), строить дашборды, соотносить нагрузку с метриками системы.
 
 **Книги (ядро):**
-- Gregg *Systems Performance* (2nd ed.) — USE, CPU/mem/disk/net. https://www.brendangregg.com/systems-performance-2nd-edition-book.html
-- Grigorik *High Performance Browser Networking* (бесплатно). https://hpbn.co/
-- Wescott *Every Computer Performance Book* (очереди, capacity на пальцах). https://www.thecomputerperformancebook.com/
-- (Если JVM) Oaks *Java Performance* (2nd ed.).
+- Грегг «Производительность систем» (Systems Performance, 2-е изд.) — USE, CPU/mem/disk/net. https://www.brendangregg.com/systems-performance-2nd-edition-book.html
+- Григорик «Высокопроизводительные браузерные сети» (High Performance Browser Networking) (бесплатно). https://hpbn.co/
+- Уэскотт «Книга о производительности любых компьютерных систем» (The Every Computer Performance Book) (очереди, capacity на пальцах). https://www.thecomputerperformancebook.com/
+- (Если JVM) Оукс «Производительность Java» (Java Performance, 2-е изд.).
 
 **Доказательство уровня:**
 - Реальные нагрузочные тесты рабочих сервисов, а не демо.
@@ -108,10 +108,10 @@
 - Глубокая диагностика Linux (eBPF/perf), низкоуровневая оптимизация — по необходимости.
 
 **Книги (ядро):**
-- Nygard *Release It!* (2nd ed.) — устойчивость. https://pragprog.com/titles/mnee2/release-it-second-edition/
-- Allspaw *The Art of Capacity Planning* — ёмкость. https://www.oreilly.com/library/view/the-art-of/9781491939406/
-- Kleppmann *DDIA* целиком — распределённые системы, согласованность, масштабирование.
-- Gregg *BPF Performance Tools*; Bakhvalov *Perf Analysis on Modern CPUs* (бесплатно: https://github.com/dendibakh/perf-book).
+- Найгард «Release it! Проектирование отказоустойчивых систем» (Release It!, 2-е изд.) — устойчивость. https://pragprog.com/titles/mnee2/release-it-second-edition/
+- Оллспо «Искусство планирования ёмкости» (The Art of Capacity Planning) — ёмкость. https://www.oreilly.com/library/view/the-art-of/9781491939406/
+- Клеппман «Высоконагруженные приложения» (DDIA) целиком — распределённые системы, согласованность, масштабирование.
+- Грегг «BPF для профессионалов» (BPF Performance Tools); Бахвалов «Анализ и оптимизация производительности на современных процессорах» (Performance Analysis and Tuning on Modern CPUs) (бесплатно: https://github.com/dendibakh/perf-book).
 
 **Доказательство уровня:**
 - Внедрённая перф-стратегия/процесс, которым пользуется команда.

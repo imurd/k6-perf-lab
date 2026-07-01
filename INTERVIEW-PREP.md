@@ -35,20 +35,20 @@
 
 ## ДЕНЬ 1 — Фундамент метрик (без этого всё бессмысленно)
 
-- **08:30–10:00** 📖 Kleppmann, *DDIA*, гл.1 — раздел «Describing Performance»: latency vs throughput, почему **среднее врёт**, перцентили p50/p95/p99, «tail latency». https://dataintensive.net/
+- **08:30–10:00** 📖 Клеппман, «Высоконагруженные приложения» (DDIA), гл.1 — раздел «Describing Performance»: latency vs throughput, почему **среднее врёт**, перцентили p50/p95/p99, «tail latency». https://dataintensive.net/
 - **10:15–11:45** 💻 Установи k6, прогони `01-smoke.js`. Разбери вывод построчно по разделу «Как читать вывод» из `README.md`. Найди в выводе p95, throughput, error rate.
 - **12:00–13:00** 📖 Продолжение Kleppmann гл.1: SLA/SLO/SLI — что это и чем отличаются.
 - **14:00–15:30** 💻 Меняй в `01-smoke.js` `vus` (1→5) и `duration`, смотри, как меняются числа. Осознай связь VU ↔ throughput.
-- **15:45–17:15** 📖 Wescott, *Every Computer Performance Book* — глава про закон Литтла и теорию очередей «на пальцах»: почему после ~70–80% загрузки латентность растёт лавиной. https://www.thecomputerperformancebook.com/
+- **15:45–17:15** 📖 Уэскотт, «Книга о производительности любых компьютерных систем» (The Every Computer Performance Book) — глава про закон Литтла и теорию очередей «на пальцах»: почему после ~70–80% загрузки латентность растёт лавиной. https://www.thecomputerperformancebook.com/
 - **17:30–19:00** 🗣 Банк вопросов, блок «Фундамент» (см. ниже) — отвечай ВСЛУХ, своими словами.
 - **20:00–21:30** ✍️ Конспект одной страницей: latency, throughput, p95/p99, SLA/SLO/SLI, закон Литтла.
 - **Итог дня:** можешь объяснить, почему p99 важнее среднего, и что такое SLO.
 
 ## ДЕНЬ 2 — Методология: виды тестов и процесс
 
-- **08:30–10:00** 📖 Molyneaux, *The Art of Application Performance Testing* — процесс: цели, профиль нагрузки, критерии приёмки.
+- **08:30–10:00** 📖 Молинье, «Искусство тестирования производительности приложений» (The Art of Application Performance Testing) — процесс: цели, профиль нагрузки, критерии приёмки.
 - **10:15–11:45** 💻 Прогони `02-load.js`. Разбери `stages` (ramp-up → плато → ramp-down). Пойми, зачем плавный разгон.
-- **12:00–13:00** 📖 Meier, *Performance Testing Guidance for Web Applications* (бесплатно) — типы: load / stress / soak(endurance) / spike / volume. https://learn.microsoft.com/en-us/previous-versions/msp-n-p/bb924375(v=pandp.10)
+- **12:00–13:00** 📖 Мейер, «Руководство по тестированию производительности веб-приложений» (Performance Testing Guidance for Web Applications) (бесплатно) — типы: load / stress / soak(endurance) / spike / volume. https://learn.microsoft.com/en-us/previous-versions/msp-n-p/bb924375(v=pandp.10)
 - **14:00–15:30** 💻 Напиши свой профиль нагрузки: измени `stages` в `02-load.js` под сценарий «утренний пик» (быстрый разгон, долгое плато).
 - **15:45–17:15** 📖 Molyneaux — метрики и как их интерпретировать; что такое «think time» (паузы `sleep`).
 - **17:30–19:00** 🗣 Банк вопросов, блок «Методология и k6».
@@ -61,7 +61,7 @@
 - **10:15–11:45** 💻 Прогони `03-stress.js`. Найди точку деградации: где p95 взлетает / пошли ошибки. Запиши «потолок» в rps и VU.
 - **12:00–13:00** 📖 Kleppmann гл.1 повтор + понятие «backpressure» (обратное давление).
 - **14:00–15:30** 💻 Построй график: включи вывод в JSON (`k6 run --out json=res.json 03-stress.js`) или смотри summary; отметь, при каком target деградация.
-- **15:45–17:15** 📖 Начни Gregg, *Systems Performance* — введение и методология **USE** (Utilization, Saturation, Errors). https://www.brendangregg.com/systems-performance-2nd-edition-book.html
+- **15:45–17:15** 📖 Начни Грегг, «Производительность систем» (Systems Performance) — введение и методология **USE** (Utilization, Saturation, Errors). https://www.brendangregg.com/systems-performance-2nd-edition-book.html
 - **17:30–19:00** 🗣 Банк вопросов, блок «Диагностика».
 - **20:00–21:30** ✍️ Конспект USE: для каждого ресурса (CPU, память, диск, сеть) — что такое U, S, E и чем мерить.
 - **Итог дня:** знаешь, как найти потолок и что такое USE.
@@ -79,7 +79,7 @@
 
 ## ДЕНЬ 5 — Сеть/веб + оформление профиля
 
-- **08:30–10:00** 📖 Grigorik, *High Performance Browser Networking* (бесплатно) — TCP (handshake, slow start), TLS-оверхед. https://hpbn.co/
+- **08:30–10:00** 📖 Григорик, «Высокопроизводительные браузерные сети» (High Performance Browser Networking) (бесплатно) — TCP (handshake, slow start), TLS-оверхед. https://hpbn.co/
 - **10:15–11:45** 💻 В k6 включи разбор по фазам: `http_req_connecting`, `http_req_tls_handshaking`, `http_req_waiting` (TTFB). Пойми, где теряется время.
 - **12:00–13:00** 📖 Grigorik — HTTP/1.1 vs HTTP/2, keep-alive, мультиплексирование, зачем connection reuse.
 - **14:00–15:30** 🎯 Перепиши резюме и LinkedIn на язык роли: не «администрировал серверы», а «держал uptime N%, диагностировал узкие места, снижал p95 с X до Y, автоматизировал развёртывание». Добавь ссылку на k6-проект.
@@ -90,7 +90,7 @@
 
 ## ДЕНЬ 6 — Устойчивость под нагрузкой + soak + рассылка
 
-- **08:30–10:00** 📖 Nygard, *Release It!* (2nd ed.) — антипаттерны и паттерны стабильности: timeout, retry, circuit breaker, bulkhead. https://pragprog.com/titles/mnee2/release-it-second-edition/
+- **08:30–10:00** 📖 Найгард, «Release it! Проектирование отказоустойчивых систем» (Release It!, 2-е изд.) — антипаттерны и паттерны стабильности: timeout, retry, circuit breaker, bulkhead. https://pragprog.com/titles/mnee2/release-it-second-edition/
 - **10:15–11:45** 💻 Запусти `04-soak.js` с плато 30–60 мин. Параллельно следи за памятью сервера — не растёт ли монотонно (утечка).
 - **12:00–13:00** 📖 Nygard — cascading failures (каскадные отказы): почему один медленный сервис роняет всё.
 - **14:00–15:30** 🎯 Разошли 15–25 заявок; напиши 2–3 performance-инженерам с ссылкой на проект. Поговори с руководителем Allied Testing о переводе, покажи проект.
@@ -101,7 +101,7 @@
 
 ## ДЕНЬ 7 — Ёмкость + генеральная репетиция
 
-- **08:30–10:00** 📖 Allspaw, *The Art of Capacity Planning* — как из результатов тестов и трендов планировать ёмкость («выдержим ли Чёрную пятницу»). https://www.oreilly.com/library/view/the-art-of/9781491939406/
+- **08:30–10:00** 📖 Оллспо, «Искусство планирования ёмкости» (The Art of Capacity Planning) — как из результатов тестов и трендов планировать ёмкость («выдержим ли Чёрную пятницу»). https://www.oreilly.com/library/view/the-art-of/9781491939406/
 - **10:15–11:45** 🗣 Мок-интервью №1: пройди ВЕСЬ банк вопросов вслух под запись. Слушай себя — где «плаваешь».
 - **12:00–13:00** 📖 Добери слабые места из конспектов (то, где плавал).
 - **14:00–15:30** 🗣 Мок-интервью №2: только сложные вопросы (Диагностика + Надёжность). Рассказ о проекте за 3 минуты — отточи.

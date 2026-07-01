@@ -63,56 +63,60 @@ checks.............: 99.20%
 
 ## 5. План на неделю (performance) с книгами по дням
 
+> Это краткий 7-дневный набросок. Углублённый план на **16 дней** с глубоким разбором тем —
+> в [`PLAN-16-DAYS.md`](PLAN-16-DAYS.md). Рекомендую идти по нему.
+
 > Режим: 14–16 часов фокуса + сон. Без сна обучение не закрепляется — это замедлит тебя, а не ускорит.
 
 ### День 1 — Решение + разворот на внутренний перевод
 - **Действие:** поговори с руководителем/HR Allied Testing о переводе в performance/QA.
   Формулировка: «хочу развиваться в нагрузочном тестировании, что нужно, чтобы перевестись».
-- **Чтение (метрики, фундамент):** Kleppmann — *Designing Data-Intensive Applications*, **глава 1**
+- **Чтение (метрики, фундамент):** Клеппман — «Высоконагруженные приложения» (Designing Data-Intensive Applications), **глава 1**
   (latency, throughput, перцентили p95/p99). https://dataintensive.net/
 - Установи k6, прогони `01-smoke.js`, пойми вывод.
 
 ### День 2 — Методология: какие бывают тесты и зачем
-- **Чтение:** Molyneaux — *The Art of Application Performance Testing* (процесс: цели, профиль
-  нагрузки, критерии) + бесплатный Meier — *Performance Testing Guidance for Web Applications*
+- **Чтение:** Молинье — «Искусство тестирования производительности приложений» (The Art of Application Performance Testing) (процесс: цели, профиль
+  нагрузки, критерии) + бесплатный Мейер — «Руководство по тестированию производительности веб-приложений» (Performance Testing Guidance for Web Applications)
   (типы: load / stress / soak / spike). https://learn.microsoft.com/en-us/previous-versions/msp-n-p/bb924375(v=pandp.10)
 - **Действие:** пропиши для учебного (или рабочего) API: цель, SLO, профиль нагрузки. Прогони `02-load.js`.
 
 ### День 3 — Свой проект: load + stress
 - **Действие:** подставь в `config.js` реальный сервис (или оставь демо). Прогони `03-stress.js`,
   найди «потолок» — момент, где p95 взлетает или пошли ошибки. Запиши цифру.
-- **Чтение:** Wescott — *The Every Computer Performance Book* (теория очередей на пальцах:
+- **Чтение:** Уэскотт — «Книга о производительности любых компьютерных систем» (The Every Computer Performance Book) (теория очередей на пальцах:
   почему после некой загрузки латентность растёт лавинообразно). https://www.thecomputerperformancebook.com/
 
 ### День 4 — Диагностика узкого места (твоё преимущество как сисадмина)
-- **Чтение:** Gregg — *Systems Performance* (2nd ed.), методология **USE**
+- **Чтение:** Грегг — «Производительность систем» (Systems Performance, 2-е изд.), методология **USE**
   (Utilization/Saturation/Errors) + главы CPU/память/диск/сеть. https://www.brendangregg.com/systems-performance-2nd-edition-book.html
 - **Действие:** во время `03-stress.js` снимай метрики сервера (`top`, `vmstat`, `iostat`, `sar`).
   Найди, что упирается: CPU / IO / БД / сеть. Устрани (индекс, пул соединений, кэш) — перезамерь.
   Зафиксируй «было → стало» в README проекта. **Это твой главный аргумент на собеседовании.**
+- **Продвинутое (по желанию):** Грегг — «BPF для профессионалов» (BPF Performance Tools) — трассировка ядра Linux через eBPF/`bpftrace`, когда стандартных утилит мало. https://www.brendangregg.com/bpf-performance-tools-book.html
 
 ### День 5 — Сеть/веб (если тестируешь HTTP) + оформление
-- **Чтение:** Grigorik — *High Performance Browser Networking* (бесплатно), разделы TCP/TLS/HTTP-2,
+- **Чтение:** Григорик — «Высокопроизводительные браузерные сети» (High Performance Browser Networking) (бесплатно), разделы TCP/TLS/HTTP-2,
   keep-alive, latency budget. https://hpbn.co/
 - **Действие:** оформи GitHub-репозиторий проекта: README с целью, SLO, графиками, выводами «было→стало».
   Перепиши резюме/LinkedIn на язык роли (не «админил серверы», а «диагностировал узкие места,
   держал uptime, автоматизировал»).
 
 ### День 6 — Устойчивость под нагрузкой + рассылка
-- **Чтение:** Nygard — *Release It!* (2nd ed.) — паттерны отказов (таймауты, circuit breaker,
+- **Чтение:** Найгард — «Release it! Проектирование отказоустойчивых систем» (Release It!, 2-е изд.) — паттерны отказов (таймауты, circuit breaker,
   bulkhead): *почему* системы падают на пике. https://pragprog.com/titles/mnee2/release-it-second-edition/
 - **Действие:** прогони `04-soak.js` подольше (30–60 мин), проверь, не течёт ли память.
   Разошли заявки/сообщения; напиши 2–3 performance-инженерам с ссылкой на проект.
 
 ### День 7 — Ёмкость + подготовка к собеседованию
-- **Чтение:** Allspaw — *The Art of Capacity Planning* (как из результатов тестов планировать
+- **Чтение:** Оллспо — «Искусство планирования ёмкости» (The Art of Capacity Planning) (как из результатов тестов планировать
   ёмкость). https://www.oreilly.com/library/view/the-art-of/9781491939406/
 - **Действие:** отрепетируй рассказ о проекте за 3 минуты. Разбери типовые вопросы:
   чем p95 лучше среднего, как искать bottleneck по USE, что делать при высокой латентности.
 
 ### Дальше (по мере надобности)
-- JVM-приложения → Oaks — *Java Performance* (2nd ed.).
-- Глубокая диагностика Linux → Gregg — *BPF Performance Tools*; Bakhvalov — *Perf Analysis on Modern CPUs*
+- JVM-приложения → Оукс — «Производительность Java» (Java Performance, 2-е изд.).
+- Глубокая диагностика Linux → Грегг — «BPF для профессионалов» (BPF Performance Tools); Бахвалов — «Анализ и оптимизация производительности на современных процессорах» (Performance Analysis and Tuning on Modern CPUs)
   (бесплатно: https://github.com/dendibakh/perf-book).
 - Инструменты-альтернативы: JMeter (GUI), Gatling (Scala), Locust (Python).
 

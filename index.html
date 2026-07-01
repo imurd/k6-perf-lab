@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>Performance Engineering — учебный гид</title>
+  <meta name="description" content="Путь в performance-инженеры: план на 16 дней, дорожная карта Junior→Senior, подготовка к собеседованию, k6.">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <style>
+    :root { --theme-color: #38bdf8; }
+    .sidebar { font-size: 15px; }
+    .markdown-section { max-width: 900px; }
+    .app-name-link img { max-width: 120px; }
+  </style>
+</head>
+<body>
+  <div id="app">Загрузка учебного гида…</div>
+  <script>
+    window.$docsify = {
+      name: '⚡ Performance Engineering',
+      repo: 'https://github.com/imurd/k6-perf-lab',
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      maxLevel: 4,
+      homepage: 'HOME.md',
+      search: {
+        placeholder: 'Поиск по гиду…',
+        noData: 'Ничего не найдено',
+        depth: 4
+      },
+      copyCode: {
+        buttonText: 'Копировать',
+        successText: 'Скопировано'
+      }
+    }
+  </script>
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-sql.min.js"></script>
+</body>
+</html>

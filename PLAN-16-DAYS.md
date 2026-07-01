@@ -58,7 +58,7 @@
 
 **Читать:** Клеппман гл.1 (SLA/SLO), + обзорно про error budget (SRE-практика).
 
-**Практика:** сформулируй для учебного API 2–3 SLI и SLO (напр. «p95 GET /crocodiles < 400мс», «ошибок < 0.5%»). Впиши их в `lib/config.js` как thresholds.
+**Практика:** сформулируй для учебного API 2–3 SLI и SLO (напр. «p95 POST /api/pizza < 400мс», «ошибок < 0.5%»). Впиши их в `lib/config.js` как thresholds.
 
 **Артефакт:** `notes/slo.md` с твоими SLI/SLO и обоснованием.
 

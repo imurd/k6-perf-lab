@@ -1,42 +1,33 @@
 // ============================================================
 //  02. LOAD-ТЕСТ (нагрузочный, "обычный рабочий день")
-//  Цель: проверить, держит ли система ОЖИДАЕМУЮ нагрузку и
-//  укладывается ли в SLO (пороги p95/p99 и ошибки).
+//  Цель: держит ли система ОЖИДАЕМУЮ нагрузку и укладывается ли в SLO.
 //  Запуск:  k6 run 02-load.js
 // ============================================================
 
 import http from "k6/http";
 import { check, sleep, group } from "k6";
-import { BASE_URL, THRESHOLDS } from "./lib/config.js";
+import { BASE_URL, HEADERS, PIZZA_PAYLOAD, THRESHOLDS } from "./lib/config.js";
 
 export const options = {
-  // stages = профиль нагрузки во времени. Каждый этап: "за duration
-  // плавно доведи число VU до target". Так имитируем реальный наплыв.
+  // stages = профиль нагрузки во времени (плавный разгон → плато → спад).
   stages: [
-    { duration: "30s", target: 20 },  // разгон: 0 -> 20 пользователей за 30 сек
-    { duration: "1m",  target: 20 },  // плато: держим 20 пользователей 1 минуту
-    { duration: "30s", target: 0 },   // спад: 20 -> 0 (плавно гасим)
+    { duration: "30s", target: 20 }, // разгон 0 -> 20 VU
+    { duration: "1m",  target: 20 }, // плато 20 VU
+    { duration: "30s", target: 0 },  // спад
   ],
   thresholds: THRESHOLDS,
 };
 
 export default function () {
-  // group — логическая группировка запросов (например "один пользовательский
-  // сценарий"). В отчёте метрики можно смотреть по группам.
-  group("Список и карточка крокодила", () => {
-    // 1) Пользователь открывает список
-    const list = http.get(`${BASE_URL}/public/crocodiles/`);
-    check(list, { "список: 200": (r) => r.status === 200 });
-
-    sleep(1); // подумал
-
-    // 2) Открывает конкретную карточку (id=1)
-    const one = http.get(`${BASE_URL}/public/crocodiles/1/`);
-    check(one, {
-      "карточка: 200": (r) => r.status === 200,
-      "карточка: есть name": (r) => r.json("name") !== undefined,
+  group("Заказ рекомендации пиццы", () => {
+    const res = http.post(`${BASE_URL}/api/pizza`, PIZZA_PAYLOAD, { headers: HEADERS });
+    const body = res.json();
+    check(res, {
+      "статус 200": (r) => r.status === 200,
+      "есть название пиццы": () => body && body.pizza && body.pizza.name !== undefined,
+      "есть ингредиенты": () => body && body.pizza && Array.isArray(body.pizza.ingredients),
     });
   });
 
-  sleep(Math.random() * 2 + 1); // случайная пауза 1-3 сек = разные пользователи ведут себя по-разному
+  sleep(Math.random() * 2 + 1); // случайная пауза 1-3 сек — разные пользователи
 }

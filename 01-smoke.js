@@ -1,36 +1,32 @@
 // ============================================================
 //  01. SMOKE-ТЕСТ ("дымовой")
-//  Цель: убедиться, что сценарий вообще рабочий и API отвечает,
-//  ПОД МИНИМАЛЬНОЙ нагрузкой (1-2 пользователя, несколько секунд).
-//  Это всегда первый запуск — глупо давить 500 юзерами скрипт с опечаткой.
-//  Запуск:  k6 run 01-smoke.js
+//  Цель: убедиться, что сценарий рабочий и API отвечает,
+//  ПОД МИНИМАЛЬНОЙ нагрузкой (1 пользователь, 10 секунд).
+//  Всегда первый запуск.  Запуск:  k6 run 01-smoke.js
 // ============================================================
 
-import http from "k6/http";                    // модуль для HTTP-запросов
-import { check, sleep } from "k6";              // check = проверка ответа, sleep = пауза
-import { BASE_URL, THRESHOLDS } from "./lib/config.js";
+import http from "k6/http";
+import { check, sleep } from "k6";
+import { BASE_URL, HEADERS, PIZZA_PAYLOAD, THRESHOLDS } from "./lib/config.js";
 
-// options — главный объект настроек прогона.
 export const options = {
-  vus: 1,                 // 1 виртуальный пользователь
-  duration: "10s",        // крутить 10 секунд
-  thresholds: THRESHOLDS, // те же пороги качества, что и везде
+  vus: 1,
+  duration: "10s",
+  thresholds: THRESHOLDS,
 };
 
-// default-функция = сценарий одного пользователя.
-// k6 вызывает её снова и снова (одна итерация = один вызов) в течение duration.
 export default function () {
-  // Делаем GET-запрос к списку "крокодилов" (это данные учебного API).
-  const res = http.get(`${BASE_URL}/public/crocodiles/`);
+  // POST-запрос к QuickPizza: просим рекомендацию пиццы.
+  const res = http.post(`${BASE_URL}/api/pizza`, PIZZA_PAYLOAD, { headers: HEADERS });
 
-  // Проверяем ответ. check НЕ роняет тест, а копит статистику "прошло/нет".
+  // Парсим тело один раз (надёжнее, чем res.json('путь') в каждой проверке).
+  const body = res.json();
+
   check(res, {
     "статус 200": (r) => r.status === 200,
-    "ответ не пустой": (r) => r.body && r.body.length > 0,
+    "есть название пиццы": () => body && body.pizza && body.pizza.name !== undefined,
     "быстрее 500 мс": (r) => r.timings.duration < 500,
   });
 
-  // Пауза 1 сек между итерациями — имитируем "человек читает страницу",
-  // а не бота, который лупит без остановки. Это делает нагрузку реалистичнее.
-  sleep(1);
+  sleep(1); // think time — пауза «человек читает результат»
 }

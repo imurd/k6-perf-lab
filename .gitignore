@@ -1,0 +1,4 @@
+# k6 outputs
+*.json
+summary.html
+results/
